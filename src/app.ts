@@ -1,7 +1,7 @@
 import express from "express";
-import candidateRoutes from "./routes/candidate.routes";
-import applicationRoutes from "./routes/application.routes";
-import summaryRoutes from "./routes/summary.routes";
+import candidateRoutes from "./Candidates/routes/candidate.routes";
+import applicationRoutes from "./Applications/routes/application.routes";
+import summaryRoutes from "./Summary/routes/summary.routes";
 
 const app = express();
 
