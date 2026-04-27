@@ -2,8 +2,8 @@ import { Router } from "express";
 import {
   createCandidate,
   getCandidates,
-} from "../controllers/candidate.controller";
-import { validateCandidate } from "../middleware/validateCandidate";
+} from "./candidate.controller";
+import { validateCandidate } from "./validateCandidate";
 
 const router = Router();
 

@@ -1,3 +1,3 @@
-import routes from "./routes/candidate.routes";
+import routes from "./candidate.routes";
 
 export default routes;

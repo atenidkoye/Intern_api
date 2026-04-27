@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import {
   createCandidateService,
   getCandidatesService,
-} from "../services/candidate.service";
-import { CreateCandidate} from "../types/candidate.types";
+} from "./services/candidate.service";
+import { CreateCandidate} from "./candidate.types";
 
 export const createCandidate = async (req: Request, res: Response) => {
   try {

@@ -1,3 +1,3 @@
-import routes from "./routes/summary.routes";
+import routes from "./summary.routes";
 
 export default routes;
