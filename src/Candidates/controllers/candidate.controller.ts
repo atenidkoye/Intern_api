@@ -1,26 +1,29 @@
 import { Request, Response } from "express";
-import { pool } from "../db";
+import {
+  createCandidateService,
+  getCandidatesService,
+} from "../services/candidate.service";
+import { CreateCandidateDTO } from "../types/candidate.types";
 
 export const createCandidate = async (req: Request, res: Response) => {
-  const { full_name, email, phone, years_of_experience, primary_skill } = req.body;
-
   try {
-    const result = await pool.query(
-      `INSERT INTO candidates (full_name, email, phone, years_of_experience, primary_skill)
-       VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-      [full_name, email, phone, years_of_experience, primary_skill]
-    );
+    const data: CreateCandidateDTO = req.body;
 
-    res.status(201).json(result.rows[0]);
+    const result = await createCandidateService(data);
+    res.status(201).json(result);
   } catch (err: any) {
     if (err.code === "23505") {
       return res.status(400).json({ error: "Email must be unique" });
     }
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: err.message });
   }
 };
 
 export const getCandidates = async (_: Request, res: Response) => {
-  const result = await pool.query("SELECT * FROM candidates");
-  res.json(result.rows);
+  try {
+    const result = await getCandidatesService();
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
