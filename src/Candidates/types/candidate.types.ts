@@ -1,4 +1,4 @@
-export interface CreateCandidateDTO {
+export interface CreateCandidate {
   full_name: string;
   email: string;
   phone?: string;

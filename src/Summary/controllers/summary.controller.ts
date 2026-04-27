@@ -1,17 +1,11 @@
 import { Request, Response } from "express";
-import { pool } from "../db";
+import { getSummaryService } from "../services/summary.service";
 
 export const getSummary = async (_: Request, res: Response) => {
-  const totalCandidates = await pool.query("SELECT COUNT(*) FROM candidates");
-  const totalApplications = await pool.query("SELECT COUNT(*) FROM applications");
-
-  const byStatus = await pool.query(
-    "SELECT status, COUNT(*) FROM applications GROUP BY status"
-  );
-
-  res.json({
-    candidates: totalCandidates.rows[0].count,
-    applications: totalApplications.rows[0].count,
-    statusBreakdown: byStatus.rows
-  });
+  try {
+    const result = await getSummaryService();
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };

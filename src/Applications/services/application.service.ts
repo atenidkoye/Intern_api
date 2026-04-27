@@ -1,7 +1,7 @@
 import { pool } from "../../db";
-import { CreateApplicationDTO } from "../types/application.types";
+import { CreateApplication } from "../types/application.types";
 
-export const createApplicationService = async (data: CreateApplicationDTO) => {
+export const createApplicationService = async (data: CreateApplication) => {
   const { candidate_id, position, status, source } = data;
 
   const result = await pool.query(

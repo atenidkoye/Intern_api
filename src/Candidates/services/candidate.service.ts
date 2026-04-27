@@ -1,7 +1,7 @@
 import { pool } from "../../db";
-import { CreateCandidateDTO } from "../types/candidate.types";
+import { CreateCandidate } from "../types/candidate.types";
 
-export const createCandidateService = async (data: CreateCandidateDTO) => {
+export const createCandidateService = async (data: CreateCandidate) => {
   const {
     full_name,
     email,

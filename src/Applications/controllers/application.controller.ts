@@ -3,11 +3,11 @@ import {
   createApplicationService,
   getApplicationsService,
 } from "../services/application.service";
-import { CreateApplicationDTO } from "../types/application.types";
+import { CreateApplication } from "../types/application.types";
 
 export const createApplication = async (req: Request, res: Response) => {
   try {
-    const data: CreateApplicationDTO = req.body;
+    const data: CreateApplication = req.body;
 
     const result = await createApplicationService(data);
     res.status(201).json(result);

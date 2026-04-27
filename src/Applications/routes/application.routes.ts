@@ -3,7 +3,7 @@ import {
   createApplication,
   getApplications,
 } from "../controllers/application.controller";
-import { validateApplication } from "../middleware/validateApplication";
+import { validateApplication } from "../middlewares/validateApplication";
 
 const router = Router();
 

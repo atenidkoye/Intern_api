@@ -3,11 +3,11 @@ import {
   createCandidateService,
   getCandidatesService,
 } from "../services/candidate.service";
-import { CreateCandidateDTO } from "../types/candidate.types";
+import { CreateCandidate} from "../types/candidate.types";
 
 export const createCandidate = async (req: Request, res: Response) => {
   try {
-    const data: CreateCandidateDTO = req.body;
+    const data: CreateCandidate = req.body;
 
     const result = await createCandidateService(data);
     res.status(201).json(result);
