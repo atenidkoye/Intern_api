@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createApplication,
   getApplications,
-} from "../controllers/application.controller";
+} from "./application.controller";
 import { validateApplication } from "./validateApplication";
 
 const router = Router();

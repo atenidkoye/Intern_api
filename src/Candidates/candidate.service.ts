@@ -1,5 +1,5 @@
-import { pool } from "../../db";
-import { CreateCandidate } from "../types/candidate.types";
+import { pool } from "../db";
+import { CreateCandidate } from "./candidate.types";
 
 export const createCandidateService = async (data: CreateCandidate) => {
   const {

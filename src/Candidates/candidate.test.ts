@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../../app";
+import app from "../app";
 
 describe("Candidates API", () => {
   it("should create candidate", async () => {

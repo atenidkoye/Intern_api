@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import {
   createApplicationService,
   getApplicationsService,
-} from "../services/application.service";
-import { CreateApplication } from "../types/application.types";
+} from "./application.service";
+import { CreateApplication } from "./application.types";
 
 export const createApplication = async (req: Request, res: Response) => {
   try {

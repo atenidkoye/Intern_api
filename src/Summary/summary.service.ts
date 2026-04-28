@@ -1,4 +1,4 @@
-import { pool } from "../../db";
+import { pool } from "../db";
 
 export const getSummaryService = async () => {
   const result = await pool.query(`

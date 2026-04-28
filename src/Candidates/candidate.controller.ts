@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   createCandidateService,
   getCandidatesService,
-} from "./services/candidate.service";
+} from "./candidate.service";
 import { CreateCandidate} from "./candidate.types";
 
 export const createCandidate = async (req: Request, res: Response) => {
