@@ -1,6 +1,8 @@
 import { pool } from "../db";
 import { PoolClient } from "pg";
 
+// TYPES
+
 type Position = {
   id: number;
   title: string;
@@ -9,15 +11,16 @@ type Position = {
   status: "open" | "closed";
 };
 
+// Create POSITION
+
 export const createPositionService = async (
-  data: { title: string; capacity: number }
+  data: {
+    title: string;
+    capacity: number;
+  }
 ): Promise<Position> => {
 
   const { title, capacity } = data;
-
-  if (!title || typeof capacity !== "number") {
-    throw new Error("Invalid input");
-  }
 
   const result = await pool.query(
     `
@@ -32,21 +35,98 @@ export const createPositionService = async (
   return result.rows[0];
 };
 
+// GET ALL POSITIONS
+
 export const getPositionsService = async (): Promise<Position[]> => {
 
   const result = await pool.query(
-    "SELECT * FROM positions"
+    `
+    SELECT *
+    FROM positions
+    ORDER BY id ASC
+    `
   );
 
   return result.rows;
 };
 
+// GET POSITION BY ID
+
+export const getPositionByIdService = async (
+  id: number
+): Promise<Position> => {
+
+  const result = await pool.query(
+    `
+    SELECT *
+    FROM positions
+    WHERE id = $1
+    `,
+    [id]
+  );
+
+  return result.rows[0];
+};
+
+// UPDATE POSITION
+
+export const updatePositionService = async (
+  id: number,
+  data: {
+    title: string;
+    capacity: number;
+    status: "open" | "closed";
+  }
+): Promise<Position> => {
+
+  const {
+    title,
+    capacity,
+    status,
+  } = data;
+
+  const result = await pool.query(
+    `
+    UPDATE positions
+    SET
+      title = $1,
+      capacity = $2,
+      status = $3
+    WHERE id = $4
+    RETURNING *
+    `,
+    [
+      title,
+      capacity,
+      status,
+      id,
+    ]
+  );
+
+  return result.rows[0];
+};
+
+// DELETE POSITION
+
+export const deletePositionService = async (
+  id: number
+): Promise<void> => {
+
+  await pool.query(
+    `
+    DELETE FROM positions
+    WHERE id = $1
+    `,
+    [id]
+  );
+};
+
+// INCREMENT POSITION
+
 export const incrementFilledAndCloseIfNeeded = async (
   position_id: number,
   client: PoolClient
 ): Promise<void> => {
-
-  // GET POSITION
 
   const result = await client.query(
     `
@@ -63,8 +143,6 @@ export const incrementFilledAndCloseIfNeeded = async (
     throw new Error("Position not found");
   }
 
-  // CALCULATE VALUES
-
   const filled = position.filled + 1;
 
   const status =
@@ -72,15 +150,18 @@ export const incrementFilledAndCloseIfNeeded = async (
       ? "closed"
       : "open";
 
-  // UPDATE POSITION
-
   await client.query(
     `
     UPDATE positions
-    SET filled = $1,
-        status = $2
+    SET
+      filled = $1,
+      status = $2
     WHERE id = $3
     `,
-    [filled, status, position_id]
+    [
+      filled,
+      status,
+      position_id,
+    ]
   );
 };

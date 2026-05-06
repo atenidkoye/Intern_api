@@ -1,9 +1,7 @@
 import { pool } from "../db";
 import { CreateCandidate } from "./candidate.types";
 
-// =========================
-// CREATE CANDIDATE
-// =========================
+// Create CANDIDATE
 
 export const createCandidateService = async (
   data: CreateCandidate
