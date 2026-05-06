@@ -9,7 +9,6 @@ export const authenticate = (
     next: NextFunction
 ) => {
     const authHeader = req.headers.authorization;
-    console.log("VERIFY SECRET:", process.env.JWT_SECRET as string);
     if (!authHeader) {
         return res.status(401).json({error: "No token provided"});
     }

@@ -17,7 +17,6 @@ export const registerService = async (email: string, password: string) => {
 
 
 export const loginService = async (email: string, password: string) => {
-    console.log("SIGN SECRET:", process.env.JWT_SECRET);
     const userRes = await pool.query(
         "SELECT * FROM users WHERE email = $1",
         [email]
